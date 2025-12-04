@@ -1,0 +1,61 @@
+name: Publish phase docs to gh-pages
+
+on:
+  push:
+    branches:
+      - plan
+      - code
+      - build
+      - test
+      - release
+      - deploy
+      - operate
+      - monitor
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    env:
+      PHASE: ${{ github.ref_name }}
+
+    steps:
+      - name: Checkout current phase branch
+        uses: actions/checkout@v4
+
+      - name: Fail if docs/ missing (merciless mode)
+        run: |
+          if [ ! -d "docs" ]; then
+            echo "docs/ directory missing for phase '$PHASE'"
+            exit 1
+          fi
+
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Copy docs into gh-pages/docs/$PHASE
+        run: |
+          mkdir -p gh-pages/docs/"$PHASE"
+          rm -rf gh-pages/docs/"$PHASE"/*
+          cp -R docs/* gh-pages/docs/"$PHASE"/
+
+      - name: Commit and push
+        working-directory: gh-pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git status --porcelain | grep .; then
+            git add docs/"$PHASE"
+            git commit -m "Update docs for phase $PHASE from $GITHUB_SHA"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+
