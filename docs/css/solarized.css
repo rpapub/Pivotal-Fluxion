@@ -1,0 +1,14 @@
+:root {
+    --base3: #fdf6e3;
+    --base00: #657b83;
+    --blue: #268bd2;
+}
+
+body {
+    background: var(--base3);
+    color: var(--base00);
+}
+
+a {
+    color: var(--blue);
+}

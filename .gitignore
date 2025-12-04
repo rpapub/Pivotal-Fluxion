@@ -1,0 +1,34 @@
+# MkDocs build output
+site/
+
+# Python / uv
+__pycache__/
+*.pyc
+.venv/
+.uv/
+
+# UiPath Studio
+#In newer versions of studio, local entity dlls are stored in a dedicated sub-directory (.local/.entities)
+#Ignore .local files without ignoring dataservice object .dlls
+!.local/
+.local/*
+!.local/.entities/
+#Ignore Debug And Design-Time Settings, Don't Ignore Release Settings
+.settings/Debug/
+.settings/Design/
+#.tmh folder is poorly documented, so not ignoring it currently.
+#.tmh/
+#(Optional) prevent scratch workflows from being commmited, allowings devs to keep local copies
+**/*[Ss]cratch*.xaml
+**/*[Ss]cratch*.xaml.json
+*[Ss]cratch*.xaml
+*[Ss]cratch*.xaml.json
+#Ignore temporary files from unsaved .xaml files
+~*
+#Ignore Generated Hashes, Reduce Diff Size
+.objects/**/.attributes/SearchHash
+.objects/**/.hash
+
+# OS junk
+.DS_Store
+Thumbs.db
