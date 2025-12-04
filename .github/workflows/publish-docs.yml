@@ -33,17 +33,24 @@ jobs:
             exit 1
           fi
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Build docs with MkDocs via uv
+        run: |
+          uv tool run mkdocs build --clean
+
       - name: Checkout gh-pages
         uses: actions/checkout@v4
         with:
           ref: gh-pages
           path: gh-pages
 
-      - name: Copy docs into gh-pages/docs/$PHASE
+      - name: Copy built site into gh-pages/docs/$PHASE
         run: |
           mkdir -p gh-pages/docs/"$PHASE"
           rm -rf gh-pages/docs/"$PHASE"/*
-          cp -R docs/* gh-pages/docs/"$PHASE"/
+          cp -R site/* gh-pages/docs/"$PHASE"/
 
       - name: Commit and push
         working-directory: gh-pages
@@ -58,4 +65,3 @@ jobs:
           else
             echo "No changes to commit"
           fi
-
