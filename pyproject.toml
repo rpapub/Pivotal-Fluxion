@@ -2,6 +2,7 @@
 name = "PivotalFluxion"
 version = "0.1.0"
 requires-python = ">=3.11"
+description = "Docs + tooling project with phase-specific extras."
 
 # deps common to all phases
 dependencies = [
@@ -18,15 +19,20 @@ plan = [
   "typer",
 ]
 
+# dev tooling (install with: uv sync --group dev)
+[tool.uv.dependency-groups]
+dev = [
+  "jsonschema",
+  "ruff",
+  "black",
+  "mypy",
+  "pytest",
+]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = []
-
-[tool.uv]
-# if you want uv to manage this project
-dev-dependencies = [
-  "jsonschema"
-]
+# scripts-only project: allow metadata-only wheel, don't fail on missing packages
+bypass-selection = true
