@@ -32,3 +32,6 @@ __pycache__/
 # OS junk
 .DS_Store
 Thumbs.db
+
+# Test data generation output
+dat/testdata/generated/
