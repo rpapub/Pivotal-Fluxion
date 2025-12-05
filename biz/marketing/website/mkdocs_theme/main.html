@@ -1,18 +1,65 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>{{ page.title }} - {{ config.site_name }}</title>
-    {% for path in config.extra_css %}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>{{ page.title }} – {{ config.site_name }}</title>
+
+  {% for path in config.extra_css %}
     <link rel="stylesheet" href="{{ path | url }}">
-    {% endfor %}
-  </head>
-  <body>
-    <header>
-      <h1>{{ config.site_name }}</h1>
-    </header>
-    <main>
+  {% endfor %}
+  {% for path in config.extra_javascript %}
+    <script src="{{ path | url }}"></script>
+  {% endfor %}
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="site-title">{{ config.site_name }}</div>
+      <nav class="top-nav">
+        {% for item in nav %}
+          <a href="{{ item.url }}">{{ item.title }}</a>
+        {% endfor %}
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-layout">
+    <aside class="sidebar">
+<nav class="side-nav">
+  {% if page.toc %}
+    <ul class="toc-root">
+      {% for item in page.toc %}
+        <li>
+          <a href="{{ item.url }}">{{ item.title }}</a>
+          {% if item.children %}
+            <ul>
+              {% for child in item.children %}
+                <li>
+                  <a href="{{ child.url }}">{{ child.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</nav>
+
+    </aside>
+
+    <main class="content">
       {{ page.content }}
     </main>
-  </body>
+  </div>
+
+  <footer class="site-footer">
+    <small>PivotalFluxion Docs</small>
+  </footer>
+
+</body>
 </html>

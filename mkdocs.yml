@@ -8,3 +8,9 @@ theme:
 
 extra_css:
   - css/solarized.css
+
+nav:
+  - Overview: index.md
+  - Concepts:
+      - Foo: foo.md
+      - Bar: bar.md
