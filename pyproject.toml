@@ -20,7 +20,7 @@ plan = [
 ]
 
 # dev tooling (install with: uv sync --group dev)
-[tool.uv.dependency-groups]
+[dependency-groups]
 dev = [
   "jsonschema",
   "ruff",
