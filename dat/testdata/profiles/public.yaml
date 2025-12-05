@@ -1,0 +1,5 @@
+description: "Public educational samples with neutral field names"
+count: 10
+output_dir: "dat/testdata/generated/public"
+template: "templates/public.j2"
+field_mapping: "mappings/public.yaml"

@@ -1,0 +1,5 @@
+description: "Example profile demonstrating all template variables"
+count: 1
+output_dir: "dat/testdata/generated/example"
+template: "templates/example.j2"
+field_mapping: "mappings/public.yaml"

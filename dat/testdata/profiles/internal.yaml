@@ -1,0 +1,5 @@
+description: "Internal documentation samples with original field names"
+count: 5
+output_dir: "dat/testdata/generated/internal"
+template: "templates/internal.j2"
+field_mapping: null

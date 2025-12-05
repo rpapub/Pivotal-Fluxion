@@ -1,0 +1,47 @@
+# Field name mappings for public/educational publishing
+# Maps internal field names to neutral public-friendly names
+
+# Record metadata
+Record.SourceSystem: SourceSystem
+
+# Account
+Account.Number: CustomerRef
+
+# Contact
+Contact.Email: EmailAddress
+Contact.FullName: FullName
+Contact.Phone: PhoneNumber
+Contact.CallbackWindow: CallbackTime
+Contact.PreferredChannel: PreferredChannel
+Contact.Timezone: Timezone
+
+# Organization
+Organization.Name: CompanyName
+Organization.LegalForm: LegalForm
+Organization.OwnerName: OwnerName
+
+# Address
+Address.AddressLine1: Street
+Address.AddressLine2: AddressLine2
+Address.HouseNumber: HouseNumber
+Address.Additional: AddressAdditional
+Address.PostalCode: PostalCode
+Address.City: City
+Address.Region: Region
+Address.Country: Country
+
+# Payment
+Payment.IBAN: BankAccount
+Payment.BIC: BankCode
+Payment.BookingText: PaymentReference
+Payment.Schedule: BillingFrequency
+Payment.Currency: Currency
+Payment.Method: PaymentMethod
+Payment.MandateReference: MandateRef
+Payment.MandateSignatureDate: MandateDate
+
+# Payer
+Payer.Type: PayerType
+Payer.FirstName: PayerFirstName
+Payer.LastName: PayerLastName
+Payer.DateOfBirth: PayerDOB

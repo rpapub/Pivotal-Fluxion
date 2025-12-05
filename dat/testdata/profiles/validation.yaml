@@ -1,0 +1,5 @@
+description: "Full corpus for validation testing as JSON"
+count: all
+output_dir: "dat/testdata/generated/validation"
+template: "templates/json.j2"
+field_mapping: null

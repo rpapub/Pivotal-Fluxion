@@ -1,0 +1,25 @@
+{# JSON template for validation testing #}
+{
+  "metadata": {
+    "testCaseId": "{{ metadata.TestCaseId }}",
+    "testType": "{{ metadata.TestType }}",
+    "description": "{{ metadata.Description }}",
+    "expectedResult": "{{ metadata.ExpectedResult }}"
+  },
+  "record": {
+{% for key, value in record.items() if key != 'ServicePoints_Parsed' and key != 'ServicePoints' %}
+    "{{ key }}": "{{ value }}"{% if not loop.last %},{% endif %}
+
+{% endfor %}
+  },
+  "servicePoints": [
+{% for sp in service_points %}
+    {
+      "type": "{{ sp.type }}",
+      "postalcode": "{{ sp.postalcode }}",
+      "city": "{{ sp.city }}"
+    }{% if not loop.last %},{% endif %}
+
+{% endfor %}
+  ]
+}

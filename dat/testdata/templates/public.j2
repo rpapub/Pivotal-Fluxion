@@ -1,0 +1,14 @@
+{# Public template with neutral field names for educational publishing #}
+{# Uses field_map to translate internal names to public-friendly names #}
+{% for key, value in record.items() if key != 'ServicePoints_Parsed' and key != 'ServicePoints' %}
+{{ field_map.get(key, key) }}: {{ value }}
+{% endfor %}
+{% if service_points %}
+
+Service Points:
+{% for sp in service_points %}
+  - Type: {{ sp.type }}
+    PostalCode: {{ sp.postalcode }}
+    City: {{ sp.city }}
+{% endfor %}
+{% endif %}

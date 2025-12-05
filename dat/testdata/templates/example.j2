@@ -1,0 +1,91 @@
+{# Example template demonstrating all available template variables #}
+{#
+  Available context:
+  - record: dict of all data fields
+  - metadata: dict with TestCaseId, TestType, Description, ExpectedResult, ExecutionLog
+  - field_map: dict for field name mapping (from profile's field_mapping)
+  - service_points: list of parsed ServicePoint dicts
+#}
+
+=== METADATA ===
+TestCaseId: {{ metadata.TestCaseId }}
+TestType: {{ metadata.TestType }}
+Description: {{ metadata.Description }}
+ExpectedResult: {{ metadata.ExpectedResult }}
+ExecutionLog: {{ metadata.ExecutionLog }}
+
+=== RECORD FIELDS ===
+Record.SourceSystem: {{ record['Record.SourceSystem'] }}
+Account.Number: {{ record['Account.Number'] }}
+Contact.Email: {{ record['Contact.Email'] }}
+Contact.FullName: {{ record['Contact.FullName'] }}
+Contact.Phone: {{ record['Contact.Phone'] }}
+Contact.CallbackWindow: {{ record['Contact.CallbackWindow'] }}
+Contact.PreferredChannel: {{ record['Contact.PreferredChannel'] }}
+Contact.Timezone: {{ record['Contact.Timezone'] }}
+Organization.Name: {{ record['Organization.Name'] }}
+Organization.LegalForm: {{ record['Organization.LegalForm'] }}
+Organization.OwnerName: {{ record['Organization.OwnerName'] }}
+Address.AddressLine1: {{ record['Address.AddressLine1'] }}
+Address.AddressLine2: {{ record['Address.AddressLine2'] }}
+Address.HouseNumber: {{ record['Address.HouseNumber'] }}
+Address.Additional: {{ record['Address.Additional'] }}
+Address.PostalCode: {{ record['Address.PostalCode'] }}
+Address.City: {{ record['Address.City'] }}
+Address.Region: {{ record['Address.Region'] }}
+Address.Country: {{ record['Address.Country'] }}
+Payment.IBAN: {{ record['Payment.IBAN'] }}
+Payment.BIC: {{ record['Payment.BIC'] }}
+Payment.BookingText: {{ record['Payment.BookingText'] }}
+Payment.Schedule: {{ record['Payment.Schedule'] }}
+Payment.Currency: {{ record['Payment.Currency'] }}
+Payment.Method: {{ record['Payment.Method'] }}
+Payment.MandateReference: {{ record['Payment.MandateReference'] }}
+Payment.MandateSignatureDate: {{ record['Payment.MandateSignatureDate'] }}
+Payer.Type: {{ record['Payer.Type'] }}
+Payer.FirstName: {{ record['Payer.FirstName'] }}
+Payer.LastName: {{ record['Payer.LastName'] }}
+Payer.DateOfBirth: {{ record['Payer.DateOfBirth'] }}
+
+=== SERVICE POINTS (parsed list) ===
+{% for sp in service_points %}
+ServicePoint[{{ loop.index0 }}]:
+  Type: {{ sp.type }}
+  PostalCode: {{ sp.postalcode }}
+  City: {{ sp.city }}
+{% endfor %}
+
+=== RAW SERVICE POINTS (pipe-delimited string) ===
+{{ record['ServicePoints'] }}
+
+=== FIELD MAPPING EXAMPLE ===
+{# Use field_map to translate field names (requires profile with field_mapping set) #}
+{% if field_map %}
+Account.Number mapped to: {{ field_map.get('Account.Number', 'Account.Number') }}
+Payment.IBAN mapped to: {{ field_map.get('Payment.IBAN', 'Payment.IBAN') }}
+{% else %}
+(no field mapping configured for this profile)
+{% endif %}
+
+=== ITERATION EXAMPLES ===
+{# Loop through all record fields #}
+{% for key, value in record.items() if key != 'ServicePoints_Parsed' and key != 'ServicePoints' %}
+{{ key }}: {{ value }}
+{% endfor %}
+
+=== CONDITIONAL EXAMPLES ===
+{% if metadata.TestType == 'valid' %}
+This is a VALID test case.
+{% elif metadata.TestType == 'invalid' %}
+This is an INVALID test case.
+{% elif metadata.TestType == 'boundary' %}
+This is a BOUNDARY test case.
+{% endif %}
+
+{% if service_points|length == 0 %}
+WARNING: No service points defined!
+{% elif service_points|length == 1 %}
+Single service point.
+{% else %}
+Multiple service points: {{ service_points|length }}
+{% endif %}
