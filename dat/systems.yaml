@@ -1,0 +1,45 @@
+systems:
+  - name: Self-Service Portal
+    symbol: "🌐"
+    description: "Identifier of the self-service submission channel; origin of payload data, but not directly accessed by automation."
+    role: source
+    interface: none
+    accesstype: tbd
+    restrictions: tbd
+    notes: "Payload originates here but bot does not interact with it; metadata only."
+
+  - name: CRM Platform
+    symbol: "📁"
+    description: "Identifier of the CRM/ticketing backend responsible for request lifecycle management."
+    role: source_and_target
+    interface: api
+    accesstype: tbd
+    restrictions: tbd
+    notes: "Trigger case ID comes from CRM; CRM queried for payload; CRM updated for completion or error handover."
+
+  - name: Address Directory
+    symbol: "🗺️"
+    description: "Identifier of the authoritative address-validation backend used during normalization."
+    role: enrichment
+    interface: api
+    accesstype: tbd
+    restrictions: tbd
+    notes: "Used only for lookup and validation; no write operations."
+
+  - name: Configuration Database
+    symbol: "🗄️"
+    description: "Identifier of the configuration/CMDB backend providing validated reference data."
+    role: target
+    interface: database
+    accesstype: tbd
+    restrictions: tbd
+    notes: "Primary destination for normalized payload data."
+
+  - name: RPA Process Automation
+    symbol: "🤖"
+    description: "Identifier of the automation bot/process providing deterministic cross-system execution."
+    role: orchestration
+    interface: none
+    accesstype: tbd
+    restrictions: tbd
+    notes: "No business data; only executes logic and coordinates systems."

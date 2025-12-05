@@ -1,0 +1,28 @@
+Step ID,Description,Screenshot,Next Step
+INIT_010,Receive trigger input containing CRM Case ID.,📁,INIT_020
+INIT_020,Initialize runtime context (correlation ID config path logging scope).,🤖,INIT_030
+INIT_030,Open CRM Platform UI or establish CRM API/session using robot credentials.,📁,INIT_040
+INIT_040,Perform technical prechecks (CRM Address Directory Configuration DB reachable; credentials valid).,📁🗺️🗄️,INIT_050 / TEAR_010
+INIT_050,Load runtime configuration (endpoints timeouts retry limits feature flags).,🤖,VALID_010
+VALID_010,Retrieve CRM case by Case ID.,📁,VALID_020
+VALID_020,Validate case status/type is in scope (not closed/cancelled/out-of-scope).,📁,VALID_030 / PROC_910
+VALID_030,Parse CRM payload into internal data model groups (account contact organization address payment payer servicepoints).,📁,VALID_040
+VALID_040,Validate presence of all mandatory trigger-tier fields according to schema (no semantic checks yet).,🤖,VALID_050 / PROC_920
+VALID_050,Validate basic field formats (email phone IBAN postal code dates) according to schema/regex rules.,🤖,PROC_010 / PROC_920
+PROC_010,Associate case with internal customer context (account/contact/organization/payer) in CRM.,📁,PROC_015
+PROC_015,Open Address Directory UI or establish Address Directory API/session.,🗺️,PROC_020
+PROC_020,Initialize iteration over all servicepoints in the payload.,🤖,PROC_030
+PROC_030,For current servicepoint determine validation case A (PostalCode + Identifier) or B (PostalCode only).,🤖,PROC_040A / PROC_040B
+PROC_040A,Case A: Call Address Directory to validate existence of PostalCode + Identifier combination (Rule R1).,🗺️,PROC_060 / PROC_930
+PROC_040B,Case B: Call Address Directory to validate PostalCode exists (Rule R2) and classification is allowed (Rule R3).,🗺️,PROC_060 / PROC_930
+PROC_060,Mark current servicepoint as VALID or INVALID; append to corresponding result collection.,🤖,PROC_070
+PROC_070,Check if additional servicepoints remain in the list.,🤖,PROC_020 / PROC_080
+PROC_080,Derive overall validation outcome (all VALID vs. at least one INVALID).,🤖,PROC_090
+PROC_090,Write configuration record into Configuration Database (validated servicepoints payment schedule/method options metadata).,🗄️,PROC_100 / PROC_930
+PROC_100,Update CRM case: set final status (Completed if all VALID; Requires Manual Review if any INVALID or validation error).,📁,TEAR_010
+PROC_910,Handle out-of-scope or ineligible case: log reason update CRM with non-processable status skip configuration.,📁,TEAR_010
+PROC_920,Handle validation failure (missing/invalid mandatory data): log details update CRM to request manual correction.,📁,TEAR_010
+PROC_930,Handle technical error during external calls: apply retry policy; if still failing mark CRM case as Technical Error.,🤖,TEAR_010
+TEAR_010,Gracefully close or sign out of CRM Address Directory and Configuration Database sessions/applications.,📁🗺️🗄️,TEAR_020
+TEAR_020,Finalize logging and audit trail (outcome timestamps error codes counts); release resources.,🤖,TEAR_030
+TEAR_030,End of process instance.,🤖,
