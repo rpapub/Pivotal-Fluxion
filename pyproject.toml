@@ -1,0 +1,28 @@
+[project]
+name = "PivotalFluxion"
+version = "0.1.0"
+requires-python = ">=3.11"
+
+# deps common to all phases
+dependencies = [
+  "mkdocs",
+  "mkdocs-material",
+]
+
+[project.optional-dependencies]
+plan = [
+  "openpyxl",
+  "faker",
+  "jinja2",
+  "pyyaml",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+# if you want uv to manage this project
+dev-dependencies = [
+  "jsonschema"
+]
