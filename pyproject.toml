@@ -15,6 +15,7 @@ plan = [
   "faker",
   "jinja2",
   "pyyaml",
+  "typer",
 ]
 
 [build-system]
