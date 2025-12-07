@@ -20,7 +20,9 @@ plan = [
   "pyyaml",
   "typer",
 ]
+# `uv sync --extra code`
 code = [
+  "ipykernel",
   "openpyxl",
   "faker",
   "jinja2",
