@@ -11,6 +11,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+clone = []
+shared = []
 plan = [
   "openpyxl",
   "faker",
@@ -18,6 +20,19 @@ plan = [
   "pyyaml",
   "typer",
 ]
+code = [
+  "openpyxl",
+  "faker",
+  "jinja2",
+  "pyyaml",
+  "typer",
+]
+build = []
+test = []
+release = []
+deploy = []
+operate = []
+monitor = []
 
 # dev tooling (install with: uv sync --group dev)
 [dependency-groups]
