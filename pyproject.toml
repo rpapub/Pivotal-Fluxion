@@ -22,7 +22,9 @@ plan = [
 ]
 # `uv sync --extra code`
 code = [
-  "ipykernel",
+  "ipykernel>=6.29.0,<7",
+  "jupyter-client>=8.6.0,<8.7",
+  "jupyter-core>=5.7.0,<5.8",
   "openpyxl",
   "faker",
   "jinja2",
